@@ -51,7 +51,7 @@ public:
     auto operator()(long iters, int cpu1, int cpu2) {
         using namespace std::chrono_literals;
 
-        auto t = std::jthread([&] {
+        auto t = std::thread([&] {
             pinThread(cpu1);
             // pop warmup
             for (auto i = value_type{}; i < fifoSize; ++i) {
@@ -78,6 +78,8 @@ public:
         }
         waitForEmpty();
         auto stop = std::chrono::steady_clock::now();
+
+        t.join();
 
         auto delta = stop - start;
         return (iters * 1s)/delta;

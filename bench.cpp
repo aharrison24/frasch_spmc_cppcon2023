@@ -47,7 +47,7 @@ void BM_Fifo(benchmark::State& state) {
     constexpr auto fifoSize = 131072;
     fifo_type fifo(fifoSize);
 
-    auto t = std::jthread([&] {
+    auto t = std::thread([&] {
         pinThread(cpu1);
         for (auto i = value_type{};; ++i) {
             value_type val;
@@ -96,6 +96,8 @@ void BM_Fifo(benchmark::State& state) {
     } else {
         fifo.push(-1);
     }
+
+    t.join();
 }
 
 
