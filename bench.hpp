@@ -17,6 +17,11 @@ inline __attribute__((always_inline)) void doNotOptimize(T const& value) {
     asm volatile("" : : "r,m" (value) : "memory");
 }
 
+#if __APPLE__
+
+static void pinThread(int cpu) {}
+
+#else
 
 static void pinThread(int cpu) {
     if (cpu < 0) {
@@ -30,6 +35,7 @@ static void pinThread(int cpu) {
         std::exit(EXIT_FAILURE);
     }
 }
+#endif
 
 template<typename T>
 struct isRigtorp : std::false_type {};

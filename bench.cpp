@@ -9,6 +9,12 @@
 #include <thread>
 
 
+#if __APPLE__
+
+static void pinThread(int cpu) {}
+
+#else
+
 static void pinThread(int cpu) {
     if (cpu < 0) {
         return;
@@ -21,6 +27,7 @@ static void pinThread(int cpu) {
         std::exit(EXIT_FAILURE);
     }
 }
+#endif
 
 constexpr auto cpu1 = 1;
 constexpr auto cpu2 = 2;
