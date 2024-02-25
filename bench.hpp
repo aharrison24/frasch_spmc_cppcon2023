@@ -126,7 +126,7 @@ auto bench(char const* name, long iters, int cpu1, int cpu2) {
 }
 
 
-template<template<typename> class FifoT>
+template<template <class...> class FifoT>
 void bench(char const* name, int argc, char* argv[]) {
     int cpu1 = 1;
     int cpu2 = 2;

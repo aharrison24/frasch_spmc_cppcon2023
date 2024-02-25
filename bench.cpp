@@ -32,7 +32,7 @@ template<typename ValueT>
 struct isRigtorp<rigtorp::SPSCQueue<ValueT>> : std::true_type {};
 
 
-template<template<typename> class FifoT>
+template<template<typename...> class FifoT>
 void BM_Fifo(benchmark::State& state) {
     using fifo_type = FifoT<std::int_fast64_t>;
     using value_type = typename fifo_type::value_type;
